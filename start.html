@@ -129,8 +129,7 @@
         <div class="faq-container">
           <div class="faq-item">- To add an option, type: <span class="command-text" onclick="showCommand('add')">add option_name</span></div>
           <div class="faq-item">- To remove an option, type: <span class="command-text" onclick="showCommand('remove')">remove option_name</span></div>
-          <div class="faq-item">- To open a website, type: <span class="command-text" onclick="showCommand('open')">open URL</span></div>
-                  </div>
+        </div>
       </div>
       <div class="input-line">
         <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
@@ -182,11 +181,8 @@
         if (optionToRemove) {
           removeOption(optionToRemove); // Remove the specified option
         }
-      } else if (userInput.startsWith('open ')) {
-        const url = userInput.substring(5).trim(); // Extract the URL to open
-        if (url) {
-          openLink(url); // Open the URL in a new tab
-        }
+      } else {
+        googleSearch(userInput); // Perform a Google search for other commands
       }
 
       commandInput.value = ''; // Clear the input field after executing the command
@@ -215,13 +211,10 @@
       loadOptions(); // Load and display updated options
     }
 
-    // Function to open a link in a new tab
-    function openLink(url) {
-      if (url.startsWith('http://') || url.startsWith('https://')) {
-        window.open(url, '_blank'); // Open URL with proper protocol
-      } else {
-        window.open(`https://${url}`, '_blank'); // Add default protocol if missing and open URL
-      }
+    // Function to perform a Google search
+    function googleSearch(query) {
+      const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
+      window.open(searchQuery, '_blank'); // Open Google search with the entered term
     }
 
     // Function to handle Enter key press for executing commands
@@ -236,7 +229,6 @@
       const exampleCommands = {
         'add': 'add option_name',
         'remove': 'remove option_name',
-        'open': 'open URL',
       };
 
       commandInput.value = exampleCommands[command];

@@ -26,9 +26,13 @@ Welcome to the Terminal Start Page repository! This project provides a customiza
 
 You can customize the terminal start page by editing the `start.html` file. Here are a few things you can do:
 
-- **Add Options:** In the terminal interface, you can add options by typing commands like `add option_name`.
-- **Remove Options:** Remove options by typing commands like `remove option_name`.
-- **Open Links:** Open URLs by typing commands like `open URL`.
+- **Add Options:** To add options, type commands like `add option_name` and press Enter. This will add the specified option to the terminal interface.
+
+- **Remove Options:** Remove options by typing commands like `remove option_name` and pressing Enter. This will remove the specified option from the terminal interface.
+
+- **Open Links:** When typing a command that does not start with 'add' or 'remove' and does not contain '.com' or any other top-level domain (TLD), the terminal will perform a Google search using the entered term. If the command contains a URL with a valid TLD (e.g., `.com`, `.org`, etc.), the terminal will open the specified website directly in a new tab.
+
+This customization allows you to manage options, perform Google searches, and open URLs directly from the terminal interface.
 
 ### **License**
 
