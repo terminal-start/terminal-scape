@@ -1,225 +1,234 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Scape</title>
-    
-    <style>
-      /* General Styles */
-      body {
-        background-color: #1e1e1e;
-        color: #fff;
-        font-family: 'Courier New', Courier, monospace;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Scape</title>
+  
+  <style>
+    /* General Styles */
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
 
-      .container {
-        width: 80%;
-        max-width: 800px;
-      }
+    .container {
+      width: 80%;
+      max-width: 800px;
+    }
 
-      /* Time Widget Styles */
-      .time-widget {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 3em;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
+    /* Time Widget Styles */
+    .time-widget {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-      /* Terminal Styles */
-      .terminal {
-        background-color: #2e2e2e;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
+    /* Terminal Styles */
+    .terminal {
+      background-color: #2e2e2e;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
 
-      .terminal-header {
-        background-color: #3e3e3e;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+    .terminal-header {
+      background-color: #3e3e3e;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      .terminal-header .close-btn,
-      .terminal-header .minimize-btn {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        cursor: pointer;
-      }
+    .terminal-header .close-btn,
+    .terminal-header .minimize-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-      .terminal-header .close-btn {
-        background-color: #ff5f56;
-      }
+    .terminal-header .close-btn {
+      background-color: #ff5f56;
+    }
 
-      .terminal-header .minimize-btn {
-        background-color: #ffbd2e;
-        margin-left: 5px;
-      }
+    .terminal-header .minimize-btn {
+      background-color: #ffbd2e;
+      margin-left: 5px;
+    }
 
-      .terminal-body {
-        padding: 20px;
-        background-color: #1e1e1e;
-        height: calc(100% - 80px); /* Adjust based on header and padding */
-        overflow-y: auto;
-        scrollbar-width: thin;
-      }
+    .terminal-body {
+      padding: 20px;
+      background-color: #1e1e1e;
+      height: calc(100% - 80px); /* Adjust based on header and padding */
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
 
-      .terminal-text {
-        white-space: pre-line;
-        color: #fff;
-      }
+    .terminal-text {
+      white-space: pre-line;
+      color: #fff;
+    }
 
-      .input-line {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
-        padding: 0 20px;
-      }
+    .input-line {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      padding: 0 20px;
+    }
 
-      .input-line input {
-        background: transparent;
-        border: none;
-        outline: none;
-        color: #fff;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 16px;
-        flex: 1;
-      }
+    .input-line input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      flex: 1;
+    }
 
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <!-- Time Widget -->
-      <div class="time-widget">
-        <div id="timeContent"></div>
-      </div>
-
-      <!-- Terminal -->
-      <div class="terminal">
-        <div class="terminal-header">
-          <div class="close-btn"></div>
-          <div class="minimize-btn"></div>
-        </div>
-        <div class="terminal-body">
-          <pre class="terminal-text">~$ Type a command or select an option:</pre>
-          <div id="optionsContainer"></div>
-          <pre class="terminal-text">FAQ:</pre>
-          <pre class="terminal-text">- To add an option, type: add option_name</pre>
-          <pre class="terminal-text">- To remove an option, type: remove option_name</pre>
-          <pre class="terminal-text">- To open a link, type: open URL</pre>
-        </div>
-        <div class="input-line">
-          <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
-        </div>
-      </div>
-
-
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Time Widget -->
+    <div class="time-widget">
+      <div id="timeContent"></div>
     </div>
 
-    <script>
-      // Terminal Commands
-      const optionsContainer = document.getElementById('optionsContainer');
-      const commandInput = document.getElementById('commandInput');
+    <!-- Terminal -->
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="close-btn"></div>
+        <div class="minimize-btn"></div>
+      </div>
+      <div class="terminal-body">
+        <pre class="terminal-text">~$ Type a command or select an option:</pre>
+        <div id="optionsContainer"></div>
+        <pre class="terminal-text">FAQ:</pre>
+        <pre class="terminal-text">- To add an option, type: add option_name</pre>
+        <pre class="terminal-text">- To remove an option, type: remove option_name</pre>
+        <pre class="terminal-text">- To open a link, type: open URL</pre>
+      </div>
+      <div class="input-line">
+        <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
+      </div>
+    </div>
 
-      // Load options from local storage on page load
-      window.onload = function() {
-        loadOptions();
-        updateTime();
-      };
 
-      function loadOptions() {
-        const storedOptions = localStorage.getItem('options');
-        if (storedOptions) {
-          const options = JSON.parse(storedOptions);
-          options.forEach(option => addOption(option));
+  </div>
+
+  <script>
+    // Terminal Commands
+    const optionsContainer = document.getElementById('optionsContainer'); // Container for options
+    const commandInput = document.getElementById('commandInput'); // Input field for commands
+
+    // Load options from local storage on page load
+    window.onload = function() {
+      loadOptions(); // Load saved options
+      updateTime(); // Start updating time widget
+    };
+
+    // Function to load options from local storage
+    function loadOptions() {
+      const storedOptions = localStorage.getItem('options');
+      if (storedOptions) {
+        const options = JSON.parse(storedOptions);
+        options.forEach(option => addOption(option)); // Add each option to the interface
+      }
+    }
+
+    // Function to add an option to the interface
+    function addOption(option) {
+      const optionElement = document.createElement('pre'); // Create a <pre> element for the option
+      optionElement.className = 'terminal-text'; // Set class for styling
+      optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`; // Set the content with color
+      optionsContainer.appendChild(optionElement); // Append the option to the options container
+    }
+
+    // Function to execute a command entered by the user
+    function executeCommand() {
+      const userInput = commandInput.value.trim(); // Get the user input
+
+      if (userInput.startsWith('add ')) {
+        const option = userInput.substring(4).trim(); // Extract the option name
+        if (option) {
+          addOption(option); // Add the option to the interface
+          saveOption(option); // Save the option in local storage
+        }
+      } else if (userInput.startsWith('remove ')) {
+        const optionToRemove = userInput.substring(7).trim(); // Extract the option name to remove
+        if (optionToRemove) {
+          removeOption(optionToRemove); // Remove the specified option
+        }
+      } else if (userInput.startsWith('open ')) {
+        const url = userInput.substring(5).trim(); // Extract the URL to open
+        if (url) {
+          openLink(url); // Open the URL in a new tab
         }
       }
 
-      function addOption(option) {
-        const optionElement = document.createElement('pre');
-        optionElement.className = 'terminal-text';
-        optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`;
-        optionsContainer.appendChild(optionElement);
+      commandInput.value = ''; // Clear the input field after executing the command
+    }
+
+    // Function to save an option in local storage
+    function saveOption(option) {
+      let options = localStorage.getItem('options'); // Get existing options from local storage
+      options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+      options.push(option); // Add the new option to the array
+      localStorage.setItem('options', JSON.stringify(options)); // Save the updated options in local storage
+    }
+
+    // Function to remove an option from local storage and reload options
+    function removeOption(optionToRemove) {
+      let options = localStorage.getItem('options'); // Get existing options from local storage
+      options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+      const filteredOptions = options.filter(option => option !== optionToRemove); // Filter out the option to remove
+      localStorage.setItem('options', JSON.stringify(filteredOptions)); // Save the updated options in local storage
+      reloadOptions(); // Reload options in the interface
+    }
+
+    // Function to reload options in the interface
+    function reloadOptions() {
+      optionsContainer.innerHTML = ''; // Clear the options container
+      loadOptions(); // Load and display updated options
+    }
+
+    // Function to open a link in a new tab
+    function openLink(url) {
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        window.open(url, '_blank'); // Open URL with proper protocol
+      } else {
+        window.open(`https://${url}`, '_blank'); // Add default protocol if missing and open URL
       }
+    }
 
-      function executeCommand() {
-        const userInput = commandInput.value.trim();
-
-        if (userInput.startsWith('add ')) {
-          const option = userInput.substring(4).trim();
-          if (option) {
-            addOption(option);
-            saveOption(option);
-          }
-        } else if (userInput.startsWith('remove ')) {
-          const optionToRemove = userInput.substring(7).trim();
-          if (optionToRemove) {
-            removeOption(optionToRemove);
-          }
-        } else if (userInput.startsWith('open ')) {
-          const url = userInput.substring(5).trim();
-          if (url) {
-            openLink(url);
-          }
-        }
-
-        commandInput.value = '';
+    // Function to handle Enter key press for executing commands
+    function handleEnter(event) {
+      if (event.key === 'Enter') {
+        executeCommand(); // Call executeCommand when Enter key is pressed
       }
+    }
 
-      function saveOption(option) {
-        let options = localStorage.getItem('options');
-        options = options ? JSON.parse(options) : [];
-        options.push(option);
-        localStorage.setItem('options', JSON.stringify(options));
-      }
+    // Time Widget
+    const timeContent = document.getElementById('timeContent'); // Container for time display
 
-      function removeOption(optionToRemove) {
-        let options = localStorage.getItem('options');
-        options = options ? JSON.parse(options) : [];
-        const filteredOptions = options.filter(option => option !== optionToRemove);
-        localStorage.setItem('options', JSON.stringify(filteredOptions));
-        reloadOptions();
-      }
-
-      function reloadOptions() {
-        optionsContainer.innerHTML = '';
-        loadOptions();
-      }
-
-      function openLink(url) {
-        if (url.startsWith('http://') || url.startsWith('https://')) {
-          window.open(url, '_blank');
-        } else {
-          window.open(`https://${url}`, '_blank');
-        }
-      }
-
-      function handleEnter(event) {
-        if (event.key === 'Enter') {
-          executeCommand();
-        }
-      }
-
-      // Time Widget
-      const timeContent = document.getElementById('timeContent');
-
-      function updateTime() {
-        const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        timeContent.textContent = currentTime;
-        setTimeout(updateTime, 1000);
-      }
-    </script>
-  </body>
-  </html>
+    // Function to update time display every second
+    function updateTime() {
+      const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); // Get current time
+      timeContent.textContent = currentTime; // Update time display
+      setTimeout(updateTime, 1000); // Schedule next update after 1 second
+    }
+  </script>
+</body>
+</html>
