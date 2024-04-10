@@ -9,11 +9,12 @@ Welcome to the Terminal Start Page repository! This project provides a customiza
 - Extract the downloaded ZIP file to your desired location on your computer.
 
 #### Add to Start Page
-1. Open your browser and go to the settings or options page.
-2. Look for the section where you can set a custom start page or new tab page.
-3. Choose to set a custom URL and enter the file path to the `start.html` file from the extracted repository. For example:
-   - If the file is located at `D:\TerminalStartPage\start.html`, enter `file:///D:/TerminalStartPage/start.html` as the custom URL.
-4. Save the changes in your browser settings.
+1. Open your browser and go to the Chrome Web Store.
+2. Search for the "Custom New Tab URL" extension and install it.
+3. Open the extension's options by clicking on its icon in the browser toolbar.
+4. In the extension's options, enter `file:///E:/terminal-scape/start.html` as the custom new tab URL.
+5. Make sure to enable the permission "Allow access to file URLs" for the extension.
+6. Save the changes in the extension's options.
 
 #### Open New Tab
 - Open a new tab in your browser, and you should see the custom terminal start page.
