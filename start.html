@@ -8,9 +8,9 @@
   <style>
     /* General Styles */
     body {
-      background-color: #1e1e1e;
-      color: #fff;
-      font-family: 'Courier New', Courier, monospace;
+      background-color: #282c34;
+      color: #abb2bf;
+      font-family: 'Roboto Mono', monospace;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -26,28 +26,23 @@
 
     /* Time Widget Styles */
     .time-widget {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3em;
-      font-weight: bold;
+      text-align: center;
       margin-bottom: 20px;
     }
 
     /* Terminal Styles */
     .terminal {
-      background-color: #2e2e2e;
-      border-radius: 5px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       overflow: hidden;
     }
 
     .terminal-header {
-      background-color: #3e3e3e;
+      background-color: #2d3139;
       padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: flex-end;
     }
 
     .terminal-header .close-btn,
@@ -56,6 +51,7 @@
       height: 12px;
       border-radius: 50%;
       cursor: pointer;
+      margin-left: 10px;
     }
 
     .terminal-header .close-btn {
@@ -64,12 +60,11 @@
 
     .terminal-header .minimize-btn {
       background-color: #ffbd2e;
-      margin-left: 5px;
     }
 
     .terminal-body {
       padding: 20px;
-      background-color: #1e1e1e;
+      background-color: #282c34;
       height: calc(100% - 80px); /* Adjust based on header and padding */
       overflow-y: auto;
       scrollbar-width: thin;
@@ -77,7 +72,7 @@
 
     .terminal-text {
       white-space: pre-line;
-      color: #fff;
+      color: #abb2bf;
     }
 
     .input-line {
@@ -91,10 +86,17 @@
       background: transparent;
       border: none;
       outline: none;
-      color: #fff;
-      font-family: 'Courier New', Courier, monospace;
+      color: #abb2bf;
+      font-family: 'Roboto Mono', monospace;
       font-size: 16px;
       flex: 1;
+    }
+
+    /* Custom Link Styling */
+    .link-text {
+      color: #61dafb; /* Blue color for links */
+      cursor: pointer;
+      text-decoration: underline;
     }
 
   </style>
@@ -109,8 +111,8 @@
     <!-- Terminal -->
     <div class="terminal">
       <div class="terminal-header">
-        <div class="close-btn"></div>
         <div class="minimize-btn"></div>
+        <div class="close-btn"></div>
       </div>
       <div class="terminal-body">
         <pre class="terminal-text">~$ Type a command or select an option:</pre>
@@ -118,7 +120,7 @@
         <pre class="terminal-text">FAQ:</pre>
         <pre class="terminal-text">- To add an option, type: add option_name</pre>
         <pre class="terminal-text">- To remove an option, type: remove option_name</pre>
-        <pre class="terminal-text">- To open a link, type: open URL</pre>
+        <pre class="terminal-text">- To open a link, type: open <span class="link-text" onclick="openLink('https://google.com')">https://google.com</span></pre>
       </div>
       <div class="input-line">
         <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
