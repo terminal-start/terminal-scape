@@ -1,0 +1,237 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Terminal Start Page</title>
+    <style>
+      /* General Styles */
+      body {
+        background-color: #1e1e1e;
+        color: #fff;
+        font-family: 'Courier New', Courier, monospace;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        max-width: 800px;
+      }
+
+      /* Time Widget Styles */
+      .time-widget {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3em;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      /* Terminal Styles */
+      .terminal {
+        background-color: #2e2e2e;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+
+      .terminal-header {
+        background-color: #3e3e3e;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .terminal-header .close-btn,
+      .terminal-header .minimize-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .terminal-header .close-btn {
+        background-color: #ff5f56;
+      }
+
+      .terminal-header .minimize-btn {
+        background-color: #ffbd2e;
+        margin-left: 5px;
+      }
+
+      .terminal-body {
+        padding: 20px;
+        background-color: #1e1e1e;
+        height: calc(100% - 80px); /* Adjust based on header and padding */
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+
+      .terminal-text {
+        white-space: pre-line;
+        color: #fff;
+      }
+
+      .input-line {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        padding: 0 20px;
+      }
+
+      .input-line input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        flex: 1;
+      }
+
+      /* Weather Widget Styles */
+      .weather-widget {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .weather-widget img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Time Widget -->
+      <div class="time-widget">
+        <div id="timeContent"></div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="terminal">
+        <div class="terminal-header">
+          <div class="close-btn"></div>
+          <div class="minimize-btn"></div>
+        </div>
+        <div class="terminal-body">
+          <pre class="terminal-text">~$ Type a command or select an option:</pre>
+          <div id="optionsContainer"></div>
+          <pre class="terminal-text">FAQ:</pre>
+          <pre class="terminal-text">- To add an option, type: add option_name</pre>
+          <pre class="terminal-text">- To remove an option, type: remove option_name</pre>
+          <pre class="terminal-text">- To open a link, type: open URL</pre>
+        </div>
+        <div class="input-line">
+          <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
+        </div>
+      </div>
+
+      <!-- Weather Widget -->
+      <!-- Removed Weather Widget -->
+
+    </div>
+
+    <script>
+      // Terminal Commands
+      const optionsContainer = document.getElementById('optionsContainer');
+      const commandInput = document.getElementById('commandInput');
+
+      // Load options from local storage on page load
+      window.onload = function() {
+        loadOptions();
+        updateTime();
+      };
+
+      function loadOptions() {
+        const storedOptions = localStorage.getItem('options');
+        if (storedOptions) {
+          const options = JSON.parse(storedOptions);
+          options.forEach(option => addOption(option));
+        }
+      }
+
+      function addOption(option) {
+        const optionElement = document.createElement('pre');
+        optionElement.className = 'terminal-text';
+        optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`;
+        optionsContainer.appendChild(optionElement);
+      }
+
+      function executeCommand() {
+        const userInput = commandInput.value.trim();
+
+        if (userInput.startsWith('add ')) {
+          const option = userInput.substring(4).trim();
+          if (option) {
+            addOption(option);
+            saveOption(option);
+          }
+        } else if (userInput.startsWith('remove ')) {
+          const optionToRemove = userInput.substring(7).trim();
+          if (optionToRemove) {
+            removeOption(optionToRemove);
+          }
+        } else if (userInput.startsWith('open ')) {
+          const url = userInput.substring(5).trim();
+          if (url) {
+            openLink(url);
+          }
+        }
+
+        commandInput.value = '';
+      }
+
+      function saveOption(option) {
+        let options = localStorage.getItem('options');
+        options = options ? JSON.parse(options) : [];
+        options.push(option);
+        localStorage.setItem('options', JSON.stringify(options));
+      }
+
+      function removeOption(optionToRemove) {
+        let options = localStorage.getItem('options');
+        options = options ? JSON.parse(options) : [];
+        const filteredOptions = options.filter(option => option !== optionToRemove);
+        localStorage.setItem('options', JSON.stringify(filteredOptions));
+        reloadOptions();
+      }
+
+      function reloadOptions() {
+        optionsContainer.innerHTML = '';
+        loadOptions();
+      }
+
+      function openLink(url) {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          window.open(url, '_blank');
+        } else {
+          window.open(`https://${url}`, '_blank');
+        }
+      }
+
+      function handleEnter(event) {
+        if (event.key === 'Enter') {
+          executeCommand();
+        }
+      }
+
+      // Time Widget
+      const timeContent = document.getElementById('timeContent');
+
+      function updateTime() {
+        const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        timeContent.textContent = currentTime;
+        setTimeout(updateTime, 1000);
+      }
+    </script>
+  </body>
+  </html>
