@@ -28,6 +28,8 @@
     .time-widget {
       text-align: center;
       margin-bottom: 20px;
+      color: #61dafb;
+      font-size: 24px;
     }
 
     /* Terminal Styles */
@@ -73,6 +75,7 @@
     .terminal-text {
       white-space: pre-line;
       color: #abb2bf;
+      margin-bottom: 10px;
     }
 
     .input-line {
@@ -99,14 +102,22 @@
       text-decoration: underline;
     }
 
+    /* FAQ Styles */
+    .faq-container {
+      margin-top: 20px;
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Time Widget -->
-    <div class="time-widget">
-      <div id="timeContent"></div>
-    </div>
+    <div class="time-widget" id="timeWidget"></div>
 
     <!-- Terminal -->
     <div class="terminal">
@@ -117,23 +128,23 @@
       <div class="terminal-body">
         <pre class="terminal-text">~$ Type a command or select an option:</pre>
         <div id="optionsContainer"></div>
-        <pre class="terminal-text">FAQ:</pre>
-        <pre class="terminal-text">- To add an option, type: add option_name</pre>
-        <pre class="terminal-text">- To remove an option, type: remove option_name</pre>
-        <pre class="terminal-text">- To open a link, type: open <span class="link-text" onclick="openLink('https://google.com')">https://google.com</span></pre>
+        <div class="faq-container">
+          <div class="faq-item">- To add an option, type: <span class="link-text" onclick="showCommand('add')">add option_name</span></div>
+          <div class="faq-item">- To remove an option, type: <span class="link-text" onclick="showCommand('remove')">remove option_name</span></div>
+          <div class="faq-item">- To open a link, type: <span class="link-text" onclick="showCommand('open')">open URL</span></div>
+        </div>
       </div>
       <div class="input-line">
         <input id="commandInput" type="text" placeholder="Type a command..." onkeydown="handleEnter(event)">
       </div>
     </div>
-
-
   </div>
 
   <script>
     // Terminal Commands
     const optionsContainer = document.getElementById('optionsContainer'); // Container for options
     const commandInput = document.getElementById('commandInput'); // Input field for commands
+    const timeWidget = document.getElementById('timeWidget'); // Time widget
 
     // Load options from local storage on page load
     window.onload = function() {
@@ -222,13 +233,21 @@
       }
     }
 
-    // Time Widget
-    const timeContent = document.getElementById('timeContent'); // Container for time display
+    // Function to display command examples in the terminal
+    function showCommand(command) {
+      const exampleCommands = {
+        'add': 'add option_name',
+        'remove': 'remove option_name',
+        'open': 'open URL',
+      };
+
+      commandInput.value = exampleCommands[command];
+    }
 
     // Function to update time display every second
     function updateTime() {
       const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); // Get current time
-      timeContent.textContent = currentTime; // Update time display
+      timeWidget.textContent = currentTime; // Update time display
       setTimeout(updateTime, 1000); // Schedule next update after 1 second
     }
   </script>
