@@ -19,7 +19,9 @@ Welcome to the Terminal Start Page repository! This project provides a customiza
 - Open a new tab in your browser, and you should see the custom terminal start page.
 
 ### Media
+![image](https://github.com/ForgeSpace/terminal-scape/assets/156608888/404e9fd5-8824-44ef-9593-424b582381ca)
 
+![image](https://github.com/ForgeSpace/terminal-scape/assets/156608888/03f521a1-0fe4-450e-90d8-a6012db50cfb)
 
 ### **Customization**
 
