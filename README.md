@@ -18,6 +18,9 @@ Welcome to the Terminal Start Page repository! This project provides a customiza
 #### Open New Tab
 - Open a new tab in your browser, and you should see the custom terminal start page.
 
+### Media
+
+
 ### **Customization**
 
 You can customize the terminal start page by editing the `start.html` file. Here are a few things you can do:
