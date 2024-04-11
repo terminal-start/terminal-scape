@@ -26,6 +26,7 @@ To discuss ideas, issues, or provide any feedback, join our [Discord server](htt
 
 ## Media
 
+![Terminal Start Page](https://i.imgur.com/zfw5obP.gif)
 ![Terminal Start Page](https://github.com/ForgeSpace/terminal-scape/assets/156608888/f3093f56-9486-477b-927b-83094d26fc8e)
 
 ## Customization
