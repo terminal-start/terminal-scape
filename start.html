@@ -166,27 +166,29 @@
       optionsContainer.appendChild(optionElement); // Append the option to the options container
     }
 
-    // Function to execute a command entered by the user
-    function executeCommand() {
-      const userInput = commandInput.value.trim(); // Get the user input
+// Function to execute a command entered by the user
+function executeCommand() {
+  const userInput = commandInput.value.trim(); // Get the user input
 
-      if (userInput.startsWith('add ')) {
-        const option = userInput.substring(4).trim(); // Extract the option name
-        if (option) {
-          addOption(option); // Add the option to the interface
-          saveOption(option); // Save the option in local storage
-        }
-      } else if (userInput.startsWith('remove ')) {
-        const optionToRemove = userInput.substring(7).trim(); // Extract the option name to remove
-        if (optionToRemove) {
-          removeOption(optionToRemove); // Remove the specified option
-        }
-      } else {
-        googleSearch(userInput); // Perform a Google search for other commands
-      }
-
-      commandInput.value = ''; // Clear the input field after executing the command
+  if (userInput.startsWith('add ')) {
+    const option = userInput.substring(4).trim(); // Extract the option name
+    if (option) {
+      addOption(option); // Add the option to the interface
+      saveOption(option); // Save the option in local storage
     }
+  } else if (userInput.startsWith('remove ')) {
+    const optionToRemove = userInput.substring(7).trim(); // Extract the option name to remove
+    if (optionToRemove) {
+      removeOption(optionToRemove); // Remove the specified option
+    }
+  } else if (userInput.includes('.') && !userInput.includes(' ')) {
+    openLink(userInput); // Open the entered URL directly if it contains a period and no spaces
+  } else {
+    googleSearch(userInput); // Perform a Google search for other commands
+  }
+
+  commandInput.value = ''; // Clear the input field after executing the command
+}
 
     // Function to save an option in local storage
     function saveOption(option) {
@@ -215,6 +217,15 @@
     function googleSearch(query) {
       const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
       window.open(searchQuery, '_blank'); // Open Google search with the entered term
+    }
+
+    // Function to open a link directly
+    function openLink(url) {
+      let fullUrl = url;
+      if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+        fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
+      }
+      window.open(fullUrl, '_blank'); // Open the URL in a new tab
     }
 
     // Function to handle Enter key press for executing commands
