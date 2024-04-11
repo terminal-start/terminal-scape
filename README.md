@@ -2,6 +2,11 @@
 
 Welcome to the Terminal Start Page repository! This project provides a customizable Linux terminal start page with interactive widgets for time, command options, and a terminal interface.
 
+## Discord.
+
+### To discuss ideas, issues or any feedback join https://discord.gg/B6SU7NTdru
+
+
 ### **Getting Started**
 
 #### Download the Repository
