@@ -129,6 +129,7 @@
         <div class="faq-container">
           <div class="faq-item">- To add an option, type: <span class="command-text" onclick="showCommand('add')">add option_name</span></div>
           <div class="faq-item">- To remove an option, type: <span class="command-text" onclick="showCommand('remove')">remove option_name</span></div>
+          <div class="faq-item">- To clear everything, type:: <span class="command-text" onclick="showCommand('remove')">sudo clear</span></div>
         </div>
       </div>
       <div class="input-line">
@@ -138,33 +139,39 @@
   </div>
 
   <script>
-    // Terminal Commands
-    const optionsContainer = document.getElementById('optionsContainer'); // Container for options
-    const commandInput = document.getElementById('commandInput'); // Input field for commands
-    const timeWidget = document.getElementById('timeWidget'); // Time widget
+// Terminal Commands
+const optionsContainer = document.getElementById('optionsContainer'); // Container for options
+const commandInput = document.getElementById('commandInput'); // Input field for commands
+const timeWidget = document.getElementById('timeWidget'); // Time widget
 
-    // Load options from local storage on page load
-    window.onload = function() {
-      loadOptions(); // Load saved options
-      updateTime(); // Start updating time widget
-    };
+// Load options from local storage on page load
+window.onload = function() {
+  loadOptions(); // Load saved options
+  updateTime(); // Start updating time widget
+};
 
-    // Function to load options from local storage
-    function loadOptions() {
-      const storedOptions = localStorage.getItem('options');
-      if (storedOptions) {
-        const options = JSON.parse(storedOptions);
-        options.forEach(option => addOption(option)); // Add each option to the interface
-      }
-    }
+// Function to load options from local storage
+function loadOptions() {
+  const storedOptions = localStorage.getItem('options');
+  if (storedOptions) {
+    const options = JSON.parse(storedOptions);
+    options.forEach(option => addOption(option)); // Add each option to the interface
+  }
+}
 
-    // Function to add an option to the interface
-    function addOption(option) {
-      const optionElement = document.createElement('pre'); // Create a <pre> element for the option
-      optionElement.className = 'terminal-text'; // Set class for styling
-      optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`; // Set the content with color
-      optionsContainer.appendChild(optionElement); // Append the option to the options container
-    }
+// Function to add an option to the interface
+function addOption(option) {
+  const optionElement = document.createElement('pre'); // Create a <pre> element for the option
+  optionElement.className = 'terminal-text'; // Set class for styling
+  optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`; // Set the content with color
+  optionsContainer.appendChild(optionElement); // Append the option to the options container
+}
+
+// Function to clear all options from local storage and reload the interface
+function clearOptions() {
+  localStorage.removeItem('options'); // Remove the 'options' key from local storage
+  reloadOptions(); // Reload options in the interface
+}
 
 // Function to execute a command entered by the user
 function executeCommand() {
@@ -181,6 +188,8 @@ function executeCommand() {
     if (optionToRemove) {
       removeOption(optionToRemove); // Remove the specified option
     }
+  } else if (userInput.startsWith('sudo clear')) {
+    clearOptions(); // Call the clearOptions function
   } else if (userInput.includes('.') && !userInput.includes(' ')) {
     openLink(userInput); // Open the entered URL directly if it contains a period and no spaces
   } else {
@@ -190,67 +199,67 @@ function executeCommand() {
   commandInput.value = ''; // Clear the input field after executing the command
 }
 
-    // Function to save an option in local storage
-    function saveOption(option) {
-      let options = localStorage.getItem('options'); // Get existing options from local storage
-      options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
-      options.push(option); // Add the new option to the array
-      localStorage.setItem('options', JSON.stringify(options)); // Save the updated options in local storage
-    }
+// Function to save an option in local storage
+function saveOption(option) {
+  let options = localStorage.getItem('options'); // Get existing options from local storage
+  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+  options.push(option); // Add the new option to the array
+  localStorage.setItem('options', JSON.stringify(options)); // Save the updated options in local storage
+}
 
-    // Function to remove an option from local storage and reload options
-    function removeOption(optionToRemove) {
-      let options = localStorage.getItem('options'); // Get existing options from local storage
-      options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
-      const filteredOptions = options.filter(option => option !== optionToRemove); // Filter out the option to remove
-      localStorage.setItem('options', JSON.stringify(filteredOptions)); // Save the updated options in local storage
-      reloadOptions(); // Reload options in the interface
-    }
+// Function to remove an option from local storage and reload options
+function removeOption(optionToRemove) {
+  let options = localStorage.getItem('options'); // Get existing options from local storage
+  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+  const filteredOptions = options.filter(option => option !== optionToRemove); // Filter out the option to remove
+  localStorage.setItem('options', JSON.stringify(filteredOptions)); // Save the updated options in local storage
+  reloadOptions(); // Reload options in the interface
+}
 
-    // Function to reload options in the interface
-    function reloadOptions() {
-      optionsContainer.innerHTML = ''; // Clear the options container
-      loadOptions(); // Load and display updated options
-    }
+// Function to reload options in the interface
+function reloadOptions() {
+  optionsContainer.innerHTML = ''; // Clear the options container
+  loadOptions(); // Load and display updated options
+}
 
-    // Function to perform a Google search
-    function googleSearch(query) {
-      const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
-      window.open(searchQuery, '_blank'); // Open Google search with the entered term
-    }
+// Function to perform a Google search
+function googleSearch(query) {
+  const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
+  window.open(searchQuery, '_blank'); // Open Google search with the entered term
+}
 
-    // Function to open a link directly
-    function openLink(url) {
-      let fullUrl = url;
-      if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
-        fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
-      }
-      window.open(fullUrl, '_blank'); // Open the URL in a new tab
-    }
+// Function to open a link directly
+function openLink(url) {
+  let fullUrl = url;
+  if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+    fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
+  }
+  window.open(fullUrl, '_blank'); // Open the URL in a new tab
+}
 
-    // Function to handle Enter key press for executing commands
-    function handleEnter(event) {
-      if (event.key === 'Enter') {
-        executeCommand(); // Call executeCommand when Enter key is pressed
-      }
-    }
+// Function to handle Enter key press for executing commands
+function handleEnter(event) {
+  if (event.key === 'Enter') {
+    executeCommand(); // Call executeCommand when Enter key is pressed
+  }
+}
 
-    // Function to display command examples in the terminal
-    function showCommand(command) {
-      const exampleCommands = {
-        'add': 'add option_name',
-        'remove': 'remove option_name',
-      };
+// Function to display command examples in the terminal
+function showCommand(command) {
+  const exampleCommands = {
+    'add': 'add option_name',
+    'remove': 'remove option_name',
+  };
 
-      commandInput.value = exampleCommands[command];
-    }
+  commandInput.value = exampleCommands[command];
+}
 
-    // Function to update time display every second
-    function updateTime() {
-      const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); // Get current time
-      timeWidget.textContent = currentTime; // Update time display
-      setTimeout(updateTime, 1000); // Schedule next update after 1 second
-    }
+// Function to update time display every second
+function updateTime() {
+  const currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); // Get current time
+  timeWidget.textContent = currentTime; // Update time display
+  setTimeout(updateTime, 1000); // Schedule next update after 1 second
+}
   </script>
 </body>
 </html>
