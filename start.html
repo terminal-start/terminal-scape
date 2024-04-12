@@ -145,7 +145,7 @@
         <div class="faq-container">
           <div class="faq-item">- To add an option, type: <span class="command-text" onclick="showCommand('add')">add option_name</span></div>
           <div class="faq-item">- To remove an option, type: <span class="command-text" onclick="showCommand('remove')">remove option_name</span></div>
-          <div class="faq-item">- To clear everything, type:: <span class="command-text" onclick="showCommand('remove')">sudo clear</span></div>
+          <div class="faq-item">- To clear everything, type: <span class="command-text" onclick="showCommand('remove')">sudo clear</span></div>
         </div>
       </div>
       <div class="input-line">
@@ -175,11 +175,22 @@ function loadOptions() {
   }
 }
 
+// Function to save an option in local storage
+function saveOption(option) {
+  let options = localStorage.getItem('options'); // Get existing options from local storage
+  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+  options.push(option); // Add the new option to the array
+  localStorage.setItem('options', JSON.stringify(options)); // Save the updated options in local storage
+}
+
 // Function to add an option to the interface
 function addOption(option) {
   const optionElement = document.createElement('pre'); // Create a <pre> element for the option
   optionElement.className = 'terminal-text'; // Set class for styling
   optionElement.innerHTML = `~$ <span style="color: #4cd964;">${option}</span>`; // Set the content with color
+  if (option.includes('.') && !option.includes(' ')) {
+    optionElement.innerHTML = `~$ <span style="color: #4cd964; cursor: pointer;" onclick="openLink('${option}')">${option}</span>`;
+  }
   optionsContainer.appendChild(optionElement); // Append the option to the options container
 }
 
@@ -187,6 +198,21 @@ function addOption(option) {
 function clearOptions() {
   localStorage.removeItem('options'); // Remove the 'options' key from local storage
   reloadOptions(); // Reload options in the interface
+}
+
+// Function to remove an option from local storage and reload options
+function removeOption(optionToRemove) {
+  let options = localStorage.getItem('options'); // Get existing options from local storage
+  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
+  const filteredOptions = options.filter(option => option !== optionToRemove); // Filter out the option to remove
+  localStorage.setItem('options', JSON.stringify(filteredOptions)); // Save the updated options in local storage
+  reloadOptions(); // Reload options in the interface
+}
+
+// Function to reload options in the interface
+function reloadOptions() {
+  optionsContainer.innerHTML = ''; // Clear the options container
+  loadOptions(); // Load and display updated options
 }
 
 // Function to execute a command entered by the user
@@ -215,44 +241,6 @@ function executeCommand() {
   commandInput.value = ''; // Clear the input field after executing the command
 }
 
-// Function to save an option in local storage
-function saveOption(option) {
-  let options = localStorage.getItem('options'); // Get existing options from local storage
-  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
-  options.push(option); // Add the new option to the array
-  localStorage.setItem('options', JSON.stringify(options)); // Save the updated options in local storage
-}
-
-// Function to remove an option from local storage and reload options
-function removeOption(optionToRemove) {
-  let options = localStorage.getItem('options'); // Get existing options from local storage
-  options = options ? JSON.parse(options) : []; // Parse existing options or initialize an empty array
-  const filteredOptions = options.filter(option => option !== optionToRemove); // Filter out the option to remove
-  localStorage.setItem('options', JSON.stringify(filteredOptions)); // Save the updated options in local storage
-  reloadOptions(); // Reload options in the interface
-}
-
-// Function to reload options in the interface
-function reloadOptions() {
-  optionsContainer.innerHTML = ''; // Clear the options container
-  loadOptions(); // Load and display updated options
-}
-
-// Function to perform a Google search
-function googleSearch(query) {
-  const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
-  window.open(searchQuery, '_blank'); // Open Google search with the entered term
-}
-
-// Function to open a link directly
-function openLink(url) {
-  let fullUrl = url;
-  if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
-    fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
-  }
-  window.open(fullUrl, '_blank'); // Open the URL in a new tab
-}
-
 // Function to handle Enter key press for executing commands
 function handleEnter(event) {
   if (event.key === 'Enter') {
@@ -268,6 +256,21 @@ function showCommand(command) {
   };
 
   commandInput.value = exampleCommands[command];
+}
+
+// Function to perform a Google search
+function googleSearch(query) {
+  const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
+  window.open(searchQuery, '_blank'); // Open Google search with the entered term
+}
+
+// Function to open a link directly
+function openLink(url) {
+  let fullUrl = url;
+  if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+    fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
+  }
+  window.open(fullUrl, '_blank'); // Open the URL in a new tab
 }
 
 // Function to update time display every second
