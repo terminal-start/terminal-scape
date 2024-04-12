@@ -7,7 +7,7 @@ Welcome to the Terminal Start Page repository! This project provides a customiza
 ### Join the Discussion
 To discuss ideas, issues, or provide any feedback, visit [Discussions](https://github.com/ForgeSpace/terminal-scape/discussions), or join the [Discord](https://discord.com/invite/B6SU7NTdru).
 
-## Getting Started 
+## Getting Started
 
 ### Download and Setup
 1. Click on the green "Code" button above and select "Download ZIP".
