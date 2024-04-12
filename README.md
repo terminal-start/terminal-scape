@@ -12,7 +12,7 @@ To discuss ideas, issues, or provide any feedback, visit [Discussions](https://g
 ### Download and Setup
 1. Click on the green "Code" button above and select "Download ZIP".
 2. Extract the downloaded ZIP file to your desired location on your computer.
-3. Alternatively you can use https://terminal-start.github.io/terminal-scape/start.html in the next steps.
+3. Alternatively you can use https://terminal-start.github.io/terminal-scape/start.html in the next steps in the guide.
 
 
 ### Add to Start Page
