@@ -38,7 +38,3 @@ You can customize the terminal start page by editing the `start.html` file. Here
 - **Open Links:** When typing a command that does not start with 'add' or 'remove' and does not contain '.com' or any other top-level domain (TLD), the terminal will perform a Google search using the entered term. If the command contains a URL with a valid TLD (e.g., `.com`, `.org`, etc.), the terminal will open the specified website directly in a new tab.
 
 This customization feature allows you to manage options, perform Google searches, and open URLs directly from the terminal interface.
-
-## License
-
-This project is licensed under the Unlicense - see the [LICENSE](LICENSE) file for details. You are free to modify and distribute the code as you wish.
