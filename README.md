@@ -19,9 +19,11 @@ To discuss ideas, issues, or provide any feedback, join the [Discord](https://di
 1. Open your browser and go to the Chrome Web Store.
 2. Search for the "Custom New Tab URL" extension and install it.
 3. Open the extension's options by clicking on its icon in the browser toolbar.
-4. In the extension's options, enter `file:///E:/terminal-scape/start.html` as the custom new tab URL. (Alternatively you can use https://terminal-start.github.io/terminal-scape/start.html)
-5. Make sure to enable the permission "Allow access to file URLs" for the extension. (You can skip this step if you are using the Github Page)
+4. In the extension's options, enter `file:///E:/terminal-scape/start.html` as the custom new tab URL. Alternatively, you can use [https://terminal-start.github.io/terminal-scape/start.html](https://terminal-start.github.io/terminal-scape/start.html).
+5. If you are using the local file (`file:///E:/...`) method, make sure to enable the permission "Allow access to file URLs" for the extension.
 6. Save the changes in the extension's options.
+
+**Note:** We recommend downloading the repository and using the local file method for the best experience. However, if you prefer not to download the repository, you can use the GitHub Pages URL [https://terminal-start.github.io/terminal-scape/start.html](https://terminal-start.github.io/terminal-scape/start.html) as an alternative. Keep in mind that using the GitHub Pages URL may have slight differences in functionality compared to the local file method.
 
 ### Open New Tab
 - After completing the steps above, open a new tab in your browser, and you should see the custom terminal start page.
