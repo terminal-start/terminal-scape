@@ -20,7 +20,7 @@ To discuss ideas, issues, or provide any feedback, visit [Discussions](https://g
 2. Search for the "Custom New Tab URL" extension and install it.
 3. Open the extension's options by clicking on its icon in the browser toolbar.
 4. In the extension's options, enter `file:///E:/terminal-scape/start.html` as the custom new tab URL. (Alternatively you can use https://terminal-start.github.io/terminal-scape/start.html)
-5. Make sure to enable the permission "Allow access to file URLs" for the extension.
+5. Make sure to enable the permission "Allow access to file URLs" for the extension. (You can skip this step if you are using the Github Page)
 6. Save the changes in the extension's options.
 
 ### Open New Tab
