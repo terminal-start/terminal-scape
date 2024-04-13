@@ -1,6 +1,6 @@
 ## Terminal Start Page
 
-Welcome to the Terminal Start Page repository! This project provides a customizable Linux terminal start page with interactive widgets for time, command options, and a terminal interface.
+Welcome to the Terminal Start Page repository! This project provides a customizable Linux terminal start page with interactive widgets for time, options to save URL, bookmarks, and a sleek and modern terminal interface for your New Tab / Start Page.
 
 ## Discussion
 
