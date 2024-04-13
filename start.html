@@ -261,7 +261,7 @@ function showCommand(command) {
 // Function to perform a Google search
 function googleSearch(query) {
   const searchQuery = 'https://www.google.com/search?q=' + encodeURIComponent(query); // Construct search URL
-  window.open(searchQuery, '_blank'); // Open Google search with the entered term
+  window.open(searchQuery, '_self'); // Open Google search with the entered term
 }
 
 // Function to open a link directly
@@ -270,7 +270,7 @@ function openLink(url) {
   if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
     fullUrl = 'http://' + fullUrl; // Prepend http:// if missing
   }
-  window.open(fullUrl, '_blank'); // Open the URL in a new tab
+  window.open(fullUrl, '_self'); // Open the URL in the same tab/window
 }
 
 // Function to update time display every second
